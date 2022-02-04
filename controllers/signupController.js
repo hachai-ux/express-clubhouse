@@ -4,7 +4,7 @@ var User = require('../models/user');
 const { body, validationResult } = require('express-validator');
 
 exports.signup_get = function (req, res) {
-    res.render('signup_form', { title: 'Signup' });
+    res.render('signup_form', { title: 'Signup', errors: false });
 }
 
 exports.signup_post = [
@@ -34,7 +34,7 @@ exports.signup_post = [
                 last_name: req.body.last_name,
                 username: req.body.email,
                 password: hashedPassword,
-                member_status: 'basic_member'
+                member_status: 'basic-member'
         
             }).save(err => {
                 if (err) { 
