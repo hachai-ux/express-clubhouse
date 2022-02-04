@@ -15,6 +15,7 @@ exports.signup_post = [
     body('last_name', 'Last name required').trim().isLength({ min: 1 }).escape(),
     body('email', 'Email address required').trim().isLength({ min: 1 }).escape(),
     body('password', 'Password required').trim().isLength({ min: 1 }).escape(),
+    body('confirmPassword', 'Confirmation password doesnt match with password').custom((value, {req})=> value === req.body.password).trim().isLength({ min: 1 }).escape(),
 
     (req, res, next) => {
 
