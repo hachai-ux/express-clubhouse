@@ -46,3 +46,45 @@ exports.signup_post = [
     
 }
 ]
+
+exports.signup_clubhouse_get = function (req, res, next) {
+    res.render('signup_clubhouse', { errors: false });
+}
+
+exports.signup_clubhouse_post = [
+   
+    // Validate and sanitze the name field.
+    body('passcode', 'Passcode is not correct').custom((value)=> value === process.env.PASSCODE_CLUBHOUSE),
+    
+
+    // Process request after validation and sanitization.
+    (req, res, next) => {
+
+        // Extract the validation errors from a request .
+        const errors = validationResult(req);
+
+    // Create a user object with updated member status
+        var user = new User(
+          {
+            member_status: 'clubhouse-member'
+          }
+        );
+
+      
+
+
+        if (!errors.isEmpty()) {
+            // There are errors. Render the form again with sanitized values and error messages.
+            res.render('signup_clubhouse', { errors: errors.array()});
+        return;
+        }
+        else {
+            // Data from form is valid. Update the record.
+            User.findByIdAndUpdate(req.params.id, user, {}, function (err,theuser) {
+                if (err) { return next(err); }
+                   // Successful - redirect to genre detail page.
+                   res.redirect(thecategory.url);
+                });
+        }
+    }
+];

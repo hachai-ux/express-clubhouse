@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+    <h1>
+        Clubhouse signup
+    </h1>
+    <form action="" method="POST">
+        <label for="passcode">Enter Passcode to join the Clubhouse</label>
+        <input name="passcode" type="password" />
+        <button>Join the Club</button>
+    </form>
+
+    <% if (errors) { %>
+        <ul>
+
+            <% errors.forEach((error)=>{%>
+                <li>
+                    <%= error.msg %>
+                </li>
+                <% }) %>
+        </ul>
+        <% } %>
+</body>
+
+</html>
