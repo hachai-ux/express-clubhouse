@@ -1,14 +1,28 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title>Clubhouse</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <h1>Clubhouse</h1>
+    <p>Welcome to Clubhouse</p>
     <% if (user) {%>
     <div>Logged in</div>
+    <hr>
+      <div class="messages">
+    <% for(let i=0; i< messages.length; i++){ %>
+      <h2>
+        <%= messages[i].title %>
+      </h2>
+      <p>
+        <%= messages[i].text %>
+      </p>
+      <hr>
+      <% } %>
+      </div>
+
+
     <a href="/new-message">Create new message</a>
     <a href="/log-out">LOG OUT</a>
     <% } else { %>

@@ -3,11 +3,21 @@ var router = express.Router();
 var signup_controller = require('../controllers/signupController');
 var newmessage_controller = require('../controllers/newmessageController');
 const passport = require("passport");
+var Message = require('../models/message');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  console.log(req.user);
-  res.render('index', { title: 'Express', user: req.user });
+  //get all messages
+  if (req.user) {
+    Message.find().exec(function (err, messages) {
+      if (err) { return next(err); }
+      //successful, so render
+      res.render('index', { messages: messages, user: req.user });
+    })
+  }
+  else {
+     res.render('index', { user: req.user });
+  }
 });
 
 router.post(
