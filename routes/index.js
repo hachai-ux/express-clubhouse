@@ -1,11 +1,25 @@
 var express = require('express');
 var router = express.Router();
 var signup_controller = require('../controllers/signupController');
-var signup_clubhouse_controller = require('../controllers/signupClubhouseController');
+const passport = require("passport");
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get('/', function (req, res, next) {
+  console.log(req.user);
+  res.render('index', { title: 'Express', user: req.user });
+});
+
+router.post(
+  "/log-in",
+    passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/"
+  })
+);
+
+router.get("/log-out", (req, res) => {
+  req.logout();
+  res.redirect("/");
 });
 
 router.get("/sign-up", signup_controller.signup_get);

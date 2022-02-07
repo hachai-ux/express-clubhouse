@@ -48,7 +48,8 @@ exports.signup_post = [
 ]
 
 exports.signup_clubhouse_get = function (req, res, next) {
-    res.render('signup_clubhouse', { errors: false });
+    console.log(req.user);
+    res.render('signup_clubhouse', { user: req.user, errors: false });
 }
 
 exports.signup_clubhouse_post = [
@@ -64,26 +65,29 @@ exports.signup_clubhouse_post = [
         const errors = validationResult(req);
 
     // Create a user object with updated member status
-        var user = new User(
+        var memberStatus = 
           {
             member_status: 'clubhouse-member'
           }
-        );
+        ;
 
       
 
 
         if (!errors.isEmpty()) {
             // There are errors. Render the form again with sanitized values and error messages.
-            res.render('signup_clubhouse', { errors: errors.array()});
+            res.render('signup_clubhouse', { user: req.user, errors: errors.array()});
         return;
         }
         else {
             // Data from form is valid. Update the record.
-            User.findByIdAndUpdate(req.params.id, user, {}, function (err,theuser) {
+             console.log(req.user._id.toString()) ;
+    
+            User.findByIdAndUpdate(req.user._id.toString(), memberStatus, {}, function (err,theuser) {
                 if (err) { return next(err); }
-                   // Successful - redirect to genre detail page.
-                   res.redirect(thecategory.url);
+                   // Successful - redirect to main page.
+
+                   res.redirect('/');
                 });
         }
     }
