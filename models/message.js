@@ -12,7 +12,7 @@ var MessageSchema = new Schema({
 
 
 // Virtual for message's URL
-UserSchema
+MessageSchema
 .virtual('url')
 .get(function () {
   return '/message' + this._id;

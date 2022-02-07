@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var signup_controller = require('../controllers/signupController');
+var newmessage_controller = require('../controllers/newmessageController');
 const passport = require("passport");
 
 /* GET home page. */
@@ -27,5 +28,8 @@ router.post("/sign-up", signup_controller.signup_post);
 
 router.get("/sign-up-clubhouse", signup_controller.signup_clubhouse_get);
 router.post("/sign-up-clubhouse", signup_controller.signup_clubhouse_post);
+
+router.get("/new-message", newmessage_controller.new_message_get);
+router.post("/new-message", newmessage_controller.new_message_post);
 
 module.exports = router;
