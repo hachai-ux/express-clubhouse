@@ -9,7 +9,7 @@ var Message = require('../models/message');
 router.get('/', function (req, res, next) {
   //get all messages
   if (req.user) {
-    Message.find().exec(function (err, messages) {
+    Message.find().populate('user').exec(function (err, messages) {
       if (err) { return next(err); }
       //successful, so render
       res.render('index', { messages: messages, user: req.user });

@@ -8,7 +8,9 @@
     <h1>Clubhouse</h1>
     <p>Welcome to Clubhouse</p>
     <% if (user) {%>
-    <div>Logged in</div>
+          <div>Logged in</div>
+    <% if (user.member_status == 'basic-member') {%>
+
     <hr>
       <div class="messages">
     <% for(let i=0; i< messages.length; i++){ %>
@@ -19,10 +21,26 @@
         <%= messages[i].text %>
       </p>
       <hr>
-      <% } %>
-      </div>
+      <% }} else if (user.member_status=='clubhouse-member') {%>
 
+        <hr>
+        <div class="messages">
+          <% for(let i=0; i< messages.length; i++){ %>
+            <h2>
+              <%= messages[i].title %>
+            </h2>
+            <h3>
+              Posted by: <%= messages[i].user.name %> at <%= messages[i].timestamp %>
+            </h3>
+            <p>
+              <%= messages[i].text %>
+            </p>
+            <hr>
+            <% }%>
+        </div>
+        <% }%>
 
+    
     <a href="/new-message">Create new message</a>
     <a href="/log-out">LOG OUT</a>
     <% } else { %>
