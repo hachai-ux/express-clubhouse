@@ -92,3 +92,49 @@ exports.signup_clubhouse_post = [
         }
     }
 ];
+
+exports.signup_admin_get = function (req, res, next) {
+    console.log(req.user);
+    res.render('signup_admin', { user: req.user, errors: false });
+}
+
+exports.signup_admin_post = [
+   
+    // Validate and sanitze the name field.
+    body('passcode-admin', 'Passcode is not correct').custom((value)=> value === process.env.PASSCODE_ADMIN),
+    
+
+    // Process request after validation and sanitization.
+    (req, res, next) => {
+
+        // Extract the validation errors from a request .
+        const errors = validationResult(req);
+
+    // Create a user object with updated admin status
+        var adminStatus = 
+          {
+            admin: true
+          }
+        ;
+
+      
+
+
+        if (!errors.isEmpty()) {
+            // There are errors. Render the form again with sanitized values and error messages.
+            res.render('signup_admin', { user: req.user, errors: errors.array()});
+        return;
+        }
+        else {
+            // Data from form is valid. Update the record.
+             console.log(req.user._id.toString()) ;
+    
+            User.findByIdAndUpdate(req.user._id.toString(), adminStatus, {}, function (err, theadmin) {
+                if (err) { return next(err); }
+                   // Successful - redirect to main page.
+
+                   res.redirect('/');
+                });
+        }
+    }
+];

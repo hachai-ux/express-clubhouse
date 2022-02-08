@@ -11,7 +11,8 @@
     <% if (user) {%>
           <div>Logged in</div>
     <% if (user.member_status == 'basic-member') {%>
-
+      <a href="/sign-up-clubhouse">Become a clubhouse member</a>
+      <a href="/sign-up-admin">Become an admin</a>
     <hr>
       <div class="messages">
     <% for(let i=0; i< messages.length; i++){ %>
@@ -23,7 +24,7 @@
       </p>
       <hr>
       <% }} else if (user.member_status=='clubhouse-member') {%>
-
+        
         <hr>
         <div class="messages">
           <% for(let i=0; i< messages.length; i++){ %>

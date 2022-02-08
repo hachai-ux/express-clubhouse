@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+    <h1>
+        Admin signup
+    </h1>
+    <% if (user) {%>
+        <form action="" method="POST">
+            <label for="passcode-admin">Enter Passcode to become admin</label>
+            <input name="passcode-admin" type="password" />
+            <button>Become Admin</button>
+        </form>
+
+        <% if (errors) { %>
+            <ul>
+
+                <% errors.forEach((error)=>{%>
+                    <li>
+                        <%= error.msg %>
+                    </li>
+                    <% }) %>
+            </ul>
+            <% } %>
+                <% } else { %>
+                    <div>This page is protected. Please login first.</div>
+                    <%}%>
+</body>
+
+</html>
