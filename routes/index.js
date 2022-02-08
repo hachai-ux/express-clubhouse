@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var signup_controller = require('../controllers/signupController');
-var newmessage_controller = require('../controllers/newmessageController');
+var message_controller = require('../controllers/messageController');
 const passport = require("passport");
 var Message = require('../models/message');
 
@@ -42,7 +42,9 @@ router.post("/sign-up-clubhouse", signup_controller.signup_clubhouse_post);
 router.get("/sign-up-admin", signup_controller.signup_admin_get);
 router.post("/sign-up-admin", signup_controller.signup_admin_post);
 
-router.get("/new-message", newmessage_controller.new_message_get);
-router.post("/new-message", newmessage_controller.new_message_post);
+router.get("/new-message", message_controller.new_message_get);
+router.post("/new-message", message_controller.new_message_post);
+
+router.post("/delete-message", message_controller.delete_message_post);
 
 module.exports = router;

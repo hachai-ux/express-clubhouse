@@ -112,7 +112,8 @@ exports.signup_admin_post = [
 
     // Create a user object with updated admin status
         var adminStatus = 
-          {
+        {
+            member_status: 'clubhouse-member',  
             admin: true
           }
         ;

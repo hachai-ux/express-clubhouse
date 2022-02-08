@@ -8,11 +8,12 @@
     <h1>Clubhouse</h1>
     <p>Welcome to Clubhouse</p>
     <a href="/sign-up">Create a new user</a>
+    <a href="/sign-up-clubhouse">Become a clubhouse member</a>
+    <a href="/sign-up-admin">Become an admin</a>
     <% if (user) {%>
           <div>Logged in</div>
     <% if (user.member_status == 'basic-member') {%>
-      <a href="/sign-up-clubhouse">Become a clubhouse member</a>
-      <a href="/sign-up-admin">Become an admin</a>
+     
     <hr>
       <div class="messages">
     <% for(let i=0; i< messages.length; i++){ %>
@@ -37,10 +38,16 @@
             <p>
               <%= messages[i].text %>
             </p>
+          <% if(user.admin == true){ %>
+            <form action="/delete-message" method="POST">
+              <input type='hidden' name='messageid' required='true' value='<%= messages[i]._id %>' />
+              <button type='submit'>Delete Message</button>
+            </form>
+          <% } %>
             <hr>
             <% }%>
         </div>
-        <% }%>
+        <% } %>
 
     
     <a href="/new-message">Create new message</a>

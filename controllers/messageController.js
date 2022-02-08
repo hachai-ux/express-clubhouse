@@ -46,3 +46,12 @@ exports.new_message_post = [
         }
     }
 ];
+
+exports.delete_message_post = function (req, res, next)  {
+
+    console.log(req.body.messageid);
+    Message.findByIdAndRemove(req.body.messageid, function deleteItem(err) {
+        if (err) { return next(err); }
+        res.redirect('/');
+    })
+    };
