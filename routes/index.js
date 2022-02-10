@@ -1,9 +1,16 @@
+var  uuid = require("uuid");
 var express = require('express');
 var router = express.Router();
 var signup_controller = require('../controllers/signupController');
 var message_controller = require('../controllers/messageController');
 const passport = require("passport");
 var Message = require('../models/message');
+
+
+router.use((req, res, next) => {
+ req.me = users[1];
+  next();
+});
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -74,7 +81,7 @@ let messages = {
 };
 
 
-
+//REST API Practice
 
 router.get('/users', (req, res) => {
   return res.send(Object.values(users));
@@ -85,7 +92,7 @@ router.get('/users/:userId', (req, res) => {
 });
 
 router.get('/messages', (req, res) => {
-  return res.send(Object.values(messages));
+  return res.send(messages);
 });
 
 router.get('/messages/:messageId', (req, res) => {
@@ -103,6 +110,30 @@ router.put('/users/:userid', (req, res) => {
 
 router.delete('/users/:userid', (req, res) => {
   return res.send('Received a DELETE HTTP method');
+});
+
+router.post('/messages', (req, res) => {
+  const id = uuid.v4();
+  const message = {
+    id,
+    text: req.body.text,
+    userId: req.me.id,
+  };
+
+  messages[id] = message;
+
+  return res.send(message);
+});
+
+router.delete('/messages/:messageId', (req, res) => {
+  const {
+    [req.params.messageId]: message,
+    ...otherMessages
+  } = messages;
+
+  messages = otherMessages;
+
+  return res.send(message);
 });
 
 
